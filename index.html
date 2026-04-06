@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestWise - Virtual Investment Learning Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- MAIN CONTAINER (LOGIN + INFO) -->
+    <div class="main-container">
+
+        <!-- LOGIN SECTION -->
+        <div class="left-section" id="loginSection">
+            <h1>InvestWise</h1>
+            <p class="tagline">Virtual Investment Learning Platform</p>
+
+            <div class="login-row">
+                <input type="text" id="username" placeholder="Enter Your Name">
+                <button onclick="login()">Login</button>
+            </div>
+            <div class="register-row">
+                <button onclick="register()">Register</button>
+            </div>
+        </div>
+
+        <!-- INFO SECTION -->
+        <div class="right-section" id="infoSection">
+
+            <h2 class="heading">Why InvestWise?</h2>
+
+            <p>
+                Many beginners lose money in real investments because they do not
+                understand risk, diversification, and emotional decision‑making.
+            </p>
+
+            <p>
+                InvestWise provides a safe virtual environment where users can
+                practice investing using virtual money before entering the real market.
+            </p>
+
+            <h3 class="heading">Why Login?</h3>
+
+            <ul>
+                <li>✔ Get ₹1,00,000 virtual money</li>
+                <li>✔ Track your portfolio</li>
+                <li>✔ Calculate your risk score</li>
+                <li>✔ Learn smart investment decisions</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD SECTION (ONLY ONE) -->
+    <div id="dashboardSection" style="display:none; padding:40px;">
+        <button onclick="scrollToInvestInfo()" style="float: right;">About Investments ↓</button>
+        <!-- LOGOUT BUTTON -->
+        <button onclick="logout()" style="float: right;">Logout</button>
+
+        <h2>Welcome, <span id="userDisplay"></span> 👋</h2>
+        <p>Start building your smart investment portfolio.</p>
+
+        <!-- WALLET SUMMARY -->
+        <div class="dashboard-cards" style="flex-wrap: wrap;">
+
+            <div class="card" style="flex: 1 1 20%;">
+                <h3>Wallet Balance</h3>
+                <p>₹ <span id="wallet">100000.00</span></p>
+            </div>
+
+            <div class="card" style="flex: 1 1 20%;">
+                <h3>Total Invested</h3>
+                <p>₹ <span id="invested">0</span></p>
+            </div>
+
+            <div class="card" style="flex: 1 1 20%;">
+                <h3>Overall Return</h3>
+                <p style="font-size: 1.5rem;">₹ <span id="overallReturn">0</span></p>
+                <small id="overallReturnPercent" style="font-weight: 600;"></small>
+            </div>
+
+            <div class="card" style="flex: 1 1 20%;">
+                <h3>Risk Score</h3>
+                <p id="risk">0 (Safe)</p>
+            </div>
+
+        </div>
+
+
+        <!-- MARKET SECTION -->
+        <h3 style="margin-top:40px;">Available Investment Options</h3>
+
+        <div class="market-buttons">
+            <button onclick="buyAsset('gold',5000)">Buy Gold ₹5000</button>
+            <button onclick="buyAsset('stocks',2000)">Buy Stocks ₹2000</button>
+            <button onclick="buyAsset('crypto',3000)">Buy Crypto ₹3000</button>
+            <button onclick="buyAsset('fd',1000)">Buy FD ₹1000</button>
+        </div>
+
+        <!-- WITHDRAW SECTION -->
+        <h3 style="margin-top:40px; color: #e11d48;">Withdraw Funds (Sell Asset)</h3>
+        <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 10px;">Click below to choose how much of your
+            investment you want to sell at current market price.</p>
+
+        <div class="market-buttons">
+            <button onclick="sellAssetCustom('gold')" style="border-color: #ef4444; color: #ef4444; background: white;"
+                onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">Sell
+                Gold</button>
+            <button onclick="sellAssetCustom('stocks')"
+                style="border-color: #ef4444; color: #ef4444; background: white;"
+                onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">Sell
+                Stocks</button>
+            <button onclick="sellAssetCustom('crypto')"
+                style="border-color: #ef4444; color: #ef4444; background: white;"
+                onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">Sell
+                Crypto</button>
+            <button onclick="sellAssetCustom('fd')" style="border-color: #ef4444; color: #ef4444; background: white;"
+                onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='white'">Sell
+                FD</button>
+        </div>
+
+
+        <!-- ASSET BREAKDOWN -->
+        <h3 style="margin-top:40px;">Investment Breakdown</h3>
+        <div class="dashboard-cards" style="flex-wrap: wrap;">
+            <div class="card" style="flex: 1 1 45%;">
+                <h3>Gold</h3>
+                <p>₹ <span id="goldInvested">0</span></p>
+                <small id="goldPL" style="font-weight: 600;"></small>
+            </div>
+            <div class="card" style="flex: 1 1 45%;">
+                <h3>Stocks</h3>
+                <p>₹ <span id="stocksInvested">0</span></p>
+                <small id="stocksPL" style="font-weight: 600;"></small>
+            </div>
+            <div class="card" style="flex: 1 1 45%;">
+                <h3>Crypto</h3>
+                <p>₹ <span id="cryptoInvested">0</span></p>
+                <small id="cryptoPL" style="font-weight: 600;"></small>
+            </div>
+            <div class="card" style="flex: 1 1 45%;">
+                <h3>FD</h3>
+                <p>₹ <span id="fdInvested">0</span></p>
+                <small id="fdPL" style="font-weight: 600;"></small>
+            </div>
+        </div>
+
+        <!-- NEW: INVESTMENT GOAL PROGRESS -->
+        <h3 style="margin-top:40px;">🎯 My Investment Goal (₹1,50,000)</h3>
+        <div class="goal-container"
+            style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 20px;">
+            <div class="progress-bar-bg"
+                style="width: 100%; background: #e2e8f0; height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 15px;">
+                <div id="goalProgress"
+                    style="width: 0%; background: linear-gradient(to right, #4ade80, #10b981); height: 100%; transition: width 0.5s ease;">
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: #475569; font-weight: 600;">
+                <span>Current: ₹<span id="currentWealth">100000</span></span>
+                <span>Target: ₹1,50,000</span>
+            </div>
+        </div>
+
+        <!-- NEW: SMART RECOMMENDATION SYSTEM -->
+        <h3 style="margin-top:40px;">💡 Market Guru Recommendation</h3>
+        <div id="recommendationArea"
+            style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 5px solid #3b82f6;">
+            <p id="recommendationText" style="color: #1e3a8a; margin-bottom: 0; font-size: 1.05rem; font-weight: 500;">
+                Analyzing your portfolio...
+            </p>
+        </div>
+
+        <!-- NEW: RISK WARNING SYSTEM -->
+        <div id="riskWarningArea"
+            style="display: none; background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 12px; margin-top: 30px; border-left: 5px solid #e11d48;">
+            <h3
+                style="color: #e11d48; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                ⚠️ High Risk Warning
+            </h3>
+            <p id="riskWarningText" style="color: #881337; margin-bottom: 0; font-size: 1rem;"></p>
+        </div>
+
+        <!-- PORTFOLIO CHART -->
+        <div id="portfolioChartSection" style="display: none;">
+            <h3 style="margin-top:40px;">Portfolio Distribution</h3>
+
+            <div style="width: 300px; height: 300px; margin-top: 20px;">
+                <canvas id="portfolioChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ABOUT INVESTMENT SECTION -->
+    <div id="investInfo" style="display:none; padding:40px; background:#f4f6f9;">
+
+        <h2>Why Invest in Different Assets?</h2>
+
+        <h3>Gold</h3>
+        <p>Gold is a safe asset and protects against inflation and market crashes.</p>
+
+        <h3>Stocks</h3>
+        <p>Stocks offer high returns over long term but involve moderate risk.</p>
+
+        <h3>Crypto</h3>
+        <p>Crypto has very high return potential but also very high risk.</p>
+
+        <h3>Fixed Deposit (FD)</h3>
+        <p>FD is low risk and provides stable but lower returns.</p>
+
+        <h3 style="margin-top: 30px; color: #d35400;">💡 Investment Tips for Beginners</h3>
+        <ul style="line-height: 1.6; padding-left: 20px;">
+            <li><strong>Diversify your portfolio:</strong> Don't put all your eggs in one basket. Spread your money
+                across different assets to minimize risk.</li>
+            <li><strong>Start early:</strong> The power of compound interest works best when you give your investments
+                time to grow.</li>
+            <li><strong>Understand your risk tolerance:</strong> Invest in assets that match your comfort level with
+                risk and your financial goals.</li>
+            <li><strong>Avoid emotional decisions:</strong> Market fluctuations are normal. Stick to your long-term plan
+                instead of reacting to short-term market noise.</li>
+        </ul>
+
+    </div>
+
+    <!-- LEARNING TOAST NOTIFICATION -->
+    <div id="learningToast" class="toast hidden">
+        <div class="toast-content">
+            <h4 id="toastTitle">Learning Moment</h4>
+            <p id="toastMessage"></p>
+        </div>
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
